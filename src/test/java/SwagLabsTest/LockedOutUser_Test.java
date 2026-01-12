@@ -3,8 +3,6 @@ package SwagLabsTest;
 import SwagLabs.AuthorizationPage;
 import Utils.DriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -12,10 +10,10 @@ import org.testng.annotations.Test;
 
 import static Urls.Urls.BaseUrl;
 
-public class LoginWithAnIncorrectPassword_Test {
+public class LockedOutUser_Test {
     private WebDriver driver;
     private AuthorizationPage authorizationPage;
-    private final String TextError = "Epic sadface: Username and password do not match any user in this service";
+    private final String TextError = "Epic sadface: Sorry, this user has been locked out.";
     @BeforeTest
     public void setup() {
         driver = DriverManager.getDriver();
@@ -24,11 +22,11 @@ public class LoginWithAnIncorrectPassword_Test {
     }
     @Test
     public void testContinueButtonClick() {
-        authorizationPage.interUserName("standard_user");
-        authorizationPage.interPassword("secret_sau");
+        authorizationPage.interUserName("locked_out_user");
+        authorizationPage.interPassword("secret_sauce");
         authorizationPage.clickButtonLogin();
-        authorizationPage.visibleButtonError();
         authorizationPage.visibleIcon();
+        authorizationPage.visibleButtonError();
         String actualtext = authorizationPage.getErrorText();
         Assert.assertEquals(actualtext, TextError);
 

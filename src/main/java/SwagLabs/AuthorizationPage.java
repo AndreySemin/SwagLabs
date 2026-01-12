@@ -23,16 +23,24 @@ public class AuthorizationPage {
     @FindBy(xpath = ("//input[@class = 'input_error form_input' and @placeholder ='Password']"))
     WebElement inputPassword;
 
-    @FindBy(xpath = ("//h3/text()"))
+    @FindBy(xpath = ("//h3[@data-test = 'error']"))
     WebElement errorText;
+
+    @FindBy(xpath = ("//*[@data-icon = 'times-circle'][1]"))
+    WebElement iconClose;
+    @FindBy(xpath = ("//button[@class='error-button']"))
+    WebElement buttonError;
 
     public AuthorizationPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-    public String getErrorText(){
-        return errorText.getText();
-    }
+
+    public void visibleButtonError() {buttonError.isDisplayed();}
+
+    public void visibleIcon() {iconClose.isDisplayed();}
+
+    public String getErrorText() {return errorText.getText();}
 
     public String getBlockTitleUserName() {
         return blockTitleUserName.getAttribute("placeholder");
