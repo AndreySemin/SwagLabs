@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import static Urls.Urls.BaseUrl;
 
-public class LoginWithAnIncorrectPassword_Test {
+public class PerformanceGlitchUser_Test {
     private WebDriver driver;
     private AuthorizationPage authorizationPage;
     private final String TextError = "Epic sadface: Username and password do not match any user in this service";
@@ -24,13 +24,13 @@ public class LoginWithAnIncorrectPassword_Test {
     }
     @Test
     public void testContinueButtonClick() {
-        authorizationPage.interUserName("standard_user");
-        authorizationPage.interPassword("secret_sau");
+        authorizationPage.interUserName("performance_glitch_user");
+        authorizationPage.interPassword("secret_sauce");
         authorizationPage.clickButtonLogin();
-        authorizationPage.visibleButtonError();
-        authorizationPage.visibleIcon();
-        String actualtext = authorizationPage.getErrorText();
-        Assert.assertEquals(actualtext, TextError);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.urlToBe("https://www.saucedemo.com/inventory.html"));
+
+
 
     }
     @AfterTest
