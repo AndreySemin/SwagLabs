@@ -23,23 +23,38 @@ public class AuthorizationPage {
     @FindBy(xpath = ("//input[@class = 'input_error form_input' and @placeholder ='Password']"))
     WebElement inputPassword;
 
-    public AuthorizationPage(WebDriver driver){
+    @FindBy(xpath = ("//h3/text()"))
+    WebElement errorText;
+
+    public AuthorizationPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
-    public String getBlockTitleUserName(){
-        return blockTitleUserName.getAttribute("placeholder");}
+    public String getErrorText(){
+        return errorText.getText();
+    }
 
-    public String getBlockTitlePassword(){
-        return blockTitlePassword.getAttribute("placeholder");}
+    public String getBlockTitleUserName() {
+        return blockTitleUserName.getAttribute("placeholder");
+    }
 
-    public String getButtonLoginText(){
+    public String getBlockTitlePassword() {
+        return blockTitlePassword.getAttribute("placeholder");
+    }
+
+    public String getButtonLoginText() {
         return buttonLogin.getAttribute("value");
     }
 
-    public void clickButtonLogin(){buttonLogin.click();}
+    public void clickButtonLogin() {
+        buttonLogin.click();
+    }
 
-    public void interUserName(String name){inputUserName.sendKeys(name);}
+    public void interUserName(String name) {
+        inputUserName.sendKeys(name);
+    }
 
-    public void interPassword(String password){inputPassword.sendKeys(password);}
+    public void interPassword(String password) {
+        inputPassword.sendKeys(password);
+    }
 }

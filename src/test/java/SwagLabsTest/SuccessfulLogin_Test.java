@@ -1,61 +1,59 @@
 package SwagLabsTest;
 
 import SwagLabs.AuthorizationPage;
+import Utils.DriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
-
-import static Paths.Paths.driverPath;
-import static Urls.Urls.urlMane;
+import static Urls.Urls.BaseUrl;
 
 public class SuccessfulLogin_Test {
     private WebDriver driver;
     private AuthorizationPage authorizationPage;
+    private final String ExpectedUserName = "Username";
+    private final String ExpectedPassword = "Password";
+    private final String ExpectedButtonText = "Login";
 
     @BeforeTest
-    void setup() {
-        System.setProperty("webdriver.chrome.driver",
-                driverPath);
-        driver = new ChromeDriver();
-        driver.get(urlMane);
+    public void setup() {
+        driver = DriverManager.getDriver();
+        driver.get(BaseUrl);
         authorizationPage = new AuthorizationPage(driver);
-    }
-    private void waitForPageLoad(WebDriver driver){
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @Test(priority = 1)
     public void titleText() {
-        String text1 = "Username";
-        String text2 = "Password";
         String actualText1 = authorizationPage.getBlockTitleUserName();
         String actualText2 = authorizationPage.getBlockTitlePassword();
-        if (actualText1.contains(text1)& actualText2.contains(text2)) {
-            System.out.println("Текст присутствует");
-        } else {
-            System.out.println("Текст отсутствует");
-        }
+        Assert.assertEquals(actualText1, ExpectedUserName);
+        Assert.assertEquals(actualText2, ExpectedPassword);
     }
+
     @Test(priority = 2)
-    public void testLogginText(){
+    public void testLogginText() {
         String buttonText = authorizationPage.getButtonLoginText();
-        Assert.assertEquals(buttonText, "Login");
+        Assert.assertEquals(buttonText, ExpectedButtonText);
     }
 
     @Test(priority = 3)
-    private void testContinueButtonClick(){
+    public void testContinueButtonClick() {
         authorizationPage.interUserName("standard_user");
         authorizationPage.interPassword("secret_sauce");
         authorizationPage.clickButtonLogin();
-        waitForPageLoad(driver);
-        ExpectedConditions.urlToBe("https://www.saucedemo.com/inventory.html");
-        driver.quit();
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.urlToBe("https://www.saucedemo.com/inventory.html"));
+    }
 
+    @AfterTest
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
 }

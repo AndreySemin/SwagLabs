@@ -1,5 +1,5 @@
 package Urls;
 
 public class Urls {
-    public static final String urlMane = "https://www.saucedemo.com/";
+    public static final String BaseUrl = "https://www.saucedemo.com/";
 }
