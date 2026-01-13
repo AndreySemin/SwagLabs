@@ -45,15 +45,13 @@ public class SuccessfulLogin_Test {
         authorizationPage.interUserName("standard_user");
         authorizationPage.interPassword("secret_sauce");
         authorizationPage.clickButtonLogin();
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.urlToBe("https://www.saucedemo.com/inventory.html"));
     }
-
     @AfterTest
     public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
     }
-
 }

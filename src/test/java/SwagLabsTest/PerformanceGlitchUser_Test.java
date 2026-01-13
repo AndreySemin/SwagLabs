@@ -35,8 +35,6 @@ public class PerformanceGlitchUser_Test {
     }
     @AfterTest
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
+        driver.navigate().back();
         }
-    }
 }

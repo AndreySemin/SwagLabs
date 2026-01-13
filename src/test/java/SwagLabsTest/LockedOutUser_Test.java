@@ -30,11 +30,13 @@ public class LockedOutUser_Test {
         String actualtext = authorizationPage.getErrorText();
         Assert.assertEquals(actualtext, TextError);
 
+
+
     }
     @AfterTest
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        authorizationPage.clicButtonError();
+        authorizationPage.clearInput();
+        authorizationPage.clearPassword();
     }
 }

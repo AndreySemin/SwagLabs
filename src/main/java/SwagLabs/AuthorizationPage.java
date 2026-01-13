@@ -35,7 +35,7 @@ public class AuthorizationPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
+    public void clicButtonError(){buttonError.click();}
     public void visibleButtonError() {buttonError.isDisplayed();}
 
     public void visibleIcon() {iconClose.isDisplayed();}
@@ -58,11 +58,12 @@ public class AuthorizationPage {
         buttonLogin.click();
     }
 
-    public void interUserName(String name) {
-        inputUserName.sendKeys(name);
-    }
+    public void interUserName(String name) {inputUserName.sendKeys(name);}
+    public void clearInput(){inputUserName.clear();}
 
     public void interPassword(String password) {
         inputPassword.sendKeys(password);
     }
+
+    public void clearPassword(){inputPassword.clear();}
 }
